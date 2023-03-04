@@ -1,0 +1,140 @@
+.app {
+    width: auto;
+    /* max-width: 90%; */
+    margin: 0 auto;
+    text-align: center;
+    padding: 2.5rem 5rem;
+}
+
+.start {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.start-title {
+    font-family: "Karla";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 31.25px;
+    line-height: 37px;
+    text-align: center;
+    margin-bottom: 1rem;
+
+    color: #293264;
+}
+
+.start-subtitle {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+
+    margin-bottom: 2rem;
+
+    color: #293264;
+}
+
+.start-btn {
+    cursor: pointer;
+    width: 12rem;
+    height: 3.5rem;
+    background: #4d5b9e;
+    border-radius: 15px;
+    border: none;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+    text-align: center;
+
+    color: #f5f7fb;
+}
+.question-container {
+    text-align: left;
+}
+
+.question {
+    /* border: #293264 solid; */
+    border-bottom: #dbdef0 0.1rem solid;
+    padding: 1rem 0;
+}
+
+.answer-container {
+    display: flex;
+    justify-content: start;
+    gap: 0.8rem;
+}
+
+.question-title {
+    margin-bottom: 0.8rem;
+    font-family: "Karla";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.1rem;
+    /* identical to box height */
+
+    color: #293264;
+}
+
+.answer-container > button {
+    cursor: pointer;
+    min-width: 4.5rem;
+    width: auto;
+
+    border-radius: 0.7rem;
+    border: #4d5b9e 0.05rem solid;
+    background-color: transparent;
+
+    padding: 0.4rem 0.8rem;
+
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+    text-align: center;
+
+    color: #293264;
+}
+
+.check-btn {
+    cursor: pointer;
+    width: 7.5rem;
+    height: 2rem;
+    background: #4d5b9e;
+    border-radius: 10px;
+    border: none;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+    text-align: center;
+
+    color: #f5f7fb;
+
+    margin-top: 1.2rem;
+}
+
+.score-container {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.score {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+
+    color: #293264;
+}
