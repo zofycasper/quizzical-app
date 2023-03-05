@@ -52,7 +52,32 @@ export default function App() {
             });
     }, []);
 
-    function handleAnswerClick() {}
+    function handleAnswerClick(answer, question) {
+        console.log(answer);
+        console.log(question);
+
+        setData((prev) => {
+            let changedData = prev.map((item) => {
+                return item.question === question
+                    ? {
+                          ...item,
+                          answers: item.answers.map((answerSet) => {
+                              return answerSet.answer === answer
+                                  ? {
+                                        ...answerSet,
+                                        isSelected: !answerSet.isSelected,
+                                    }
+                                  : {
+                                        ...answerSet,
+                                        isSelected: false,
+                                    };
+                          }),
+                      }
+                    : item;
+            });
+            return changedData;
+        });
+    }
 
     function correctString(string) {
         return string
@@ -76,7 +101,11 @@ export default function App() {
 
     return (
         <div className="app">
-            {start ? <Game data={data} /> : <Start quizStart={quizStart} />}
+            {start ? (
+                <Game data={data} handleAnswerClick={handleAnswerClick} />
+            ) : (
+                <Start quizStart={quizStart} />
+            )}
         </div>
     );
 }

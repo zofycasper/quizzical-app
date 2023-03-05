@@ -1,16 +1,40 @@
 import React from "react";
 
-export default function Answer({ answers }) {
-    console.log("🚀 ~ file: Answer.jsx:4 ~ Answer ~ answers:", answers);
+export default function Answer({
+    answers,
+    handleAnswerClick,
+    question,
+    checkClicked,
+}) {
+    // console.log("🚀 ~ file: Answer.jsx:4 ~ Answer ~ answers:", answers);
 
     const answersEl = answers.map((item) => {
-        const styles = {
-            backgroundColor: item.isCorrect ? "#94D7A2" : "transparent",
-            border: item.isCorrect && "none",
-        };
+        const styles = checkClicked
+            ? {
+                  backgroundColor:
+                      item.isCorrect && item.isSelected
+                          ? "#94D7A2"
+                          : item.isSelected
+                          ? "#F8BCBC"
+                          : item.isCorrect
+                          ? "#94D7A2"
+                          : "transparent",
+                  border: (item.isCorrect || item.isSelected) && "none",
+                  opacity: !item.isCorrect && "0.5",
+              }
+            : {
+                  backgroundColor: item.isCorrect ? "#94D7A2" : "transparent",
+                  border: item.isSelected && "none",
+                  backgroundColor: item.isSelected ? "#D6DBF5" : "transparent",
+              };
 
         return (
-            <button className="answer-1" style={styles}>
+            <button
+                className="answer-1"
+                style={styles}
+                disabled={checkClicked && true}
+                onClick={() => handleAnswerClick(item.answer, question)}
+            >
                 {item.answer}
             </button>
         );
