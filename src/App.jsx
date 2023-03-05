@@ -119,13 +119,14 @@ export default function App() {
     }
 
     function quizStart() {
-        setIsLoading(true);
         setStart(true);
     }
 
     return (
         <div className="app">
-            {start ? (
+            {isLoading ? (
+                <Loading />
+            ) : start ? (
                 isLoading ? (
                     <Loading />
                 ) : (

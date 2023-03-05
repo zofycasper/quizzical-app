@@ -27,7 +27,7 @@ export default function Answer({
 
         return (
             <button
-                key={item.answer}
+                key={item.id}
                 className="answer-1"
                 style={styles}
                 disabled={checkClicked && true}
