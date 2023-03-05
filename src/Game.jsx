@@ -1,32 +1,22 @@
 import React from "react";
-import Question from "./Question";
 import Score from "./Score";
 import Answer from "./Answer";
 
-export default function Game({ data, handleAnswerClick }) {
-    // console.log("🚀 ~ file: Game.jsx:6 ~ Game ~ data:", data);
-    const [checkClicked, setCheckClicked] = React.useState(false);
-    const [score, setScore] = React.useState(0);
-
-    function handleCheckClick() {
-        setCheckClicked(true);
-        let correctScore = 0;
-        data.forEach((item) => {
-            item.answers.forEach((answer) => {
-                if (answer.isSelected && answer.isCorrect) {
-                    correctScore++;
-                }
-            });
-        });
-        console.log(correctScore);
-        setScore(correctScore);
-    }
-
-    const questionEl = data.map((item) => {
+export default function Game({
+    data,
+    handleAnswerClick,
+    handleCheckClick,
+    score,
+    checkClicked,
+}) {
+    const questionEl = data.map((item, index) => {
         return (
-            <div className="question">
-                <h3 className="question-title">{item.question}</h3>
+            <div key={index} className="question">
+                <h3 key={item.question} className="question-title">
+                    {item.question}
+                </h3>
                 <Answer
+                    key={item.id}
                     question={item.question}
                     answers={item.answers}
                     handleAnswerClick={handleAnswerClick}

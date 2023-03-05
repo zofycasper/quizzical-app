@@ -1,22 +1,26 @@
 import React from "react";
 import "./App.css";
-import Question from "./Question";
 import Start from "./Start";
-import Score from "./Score";
 import Game from "./Game";
+import Loading from "./Loading";
+import { nanoid } from "nanoid";
 
 export default function App() {
     const [start, setStart] = React.useState(false);
     const [data, setData] = React.useState([]);
+    const [checkClicked, setCheckClicked] = React.useState(false);
+    const [score, setScore] = React.useState(0);
+    const [playTimes, setPlayTimes] = React.useState(0);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
+        setIsLoading(true);
         fetch("https://opentdb.com/api.php?amount=5")
             .then((res) => res.json())
             .then((data) => {
                 const results = data.results;
-                console.log(results);
 
-                //first, construct the fetched data into the data structure we need
+                //construct the fetched data into the data structure we need
                 //push the wrong answer to the data and set the `isCorrect` property to false
 
                 let fetchedData = results.map((result) => {
@@ -27,8 +31,10 @@ export default function App() {
                                 answer: correctString(answer),
                                 isCorrect: false,
                                 isSelected: false,
+                                id: nanoid(),
                             };
                         }),
+                        id: nanoid(),
                     };
                 });
 
@@ -38,24 +44,24 @@ export default function App() {
                         answer: correctString(results[i].correct_answer),
                         isCorrect: true,
                         isSelected: false,
+                        id: nanoid(),
                     });
                 }
 
-                // at last, shuffle the answers array, make the true answer to be random index of the array
+                // shuffle the answers array, make the true answer to be random index of the array
                 const shuffledData = fetchedData.map((item) => {
                     return {
                         ...item,
                         answers: shuffleArray(item.answers),
                     };
                 });
+
+                setIsLoading(false);
                 setData(shuffledData);
             });
-    }, []);
+    }, [playTimes]);
 
     function handleAnswerClick(answer, question) {
-        console.log(answer);
-        console.log(question);
-
         setData((prev) => {
             let changedData = prev.map((item) => {
                 return item.question === question
@@ -79,6 +85,25 @@ export default function App() {
         });
     }
 
+    function handleCheckClick() {
+        setCheckClicked(true);
+        let correctScore = 0;
+        data.forEach((item) => {
+            item.answers.forEach((answer) => {
+                if (answer.isSelected && answer.isCorrect) {
+                    correctScore++;
+                }
+            });
+        });
+
+        setScore(correctScore);
+        if (checkClicked) {
+            setPlayTimes((prev) => prev + 1);
+
+            setCheckClicked(false);
+        }
+    }
+
     function correctString(string) {
         return string
             .replace(/&amp;/g, "&")
@@ -94,15 +119,24 @@ export default function App() {
     }
 
     function quizStart() {
+        setIsLoading(true);
         setStart(true);
     }
-
-    console.log(data);
 
     return (
         <div className="app">
             {start ? (
-                <Game data={data} handleAnswerClick={handleAnswerClick} />
+                isLoading ? (
+                    <Loading />
+                ) : (
+                    <Game
+                        data={data}
+                        handleAnswerClick={handleAnswerClick}
+                        handleCheckClick={handleCheckClick}
+                        score={score}
+                        checkClicked={checkClicked}
+                    />
+                )
             ) : (
                 <Start quizStart={quizStart} />
             )}

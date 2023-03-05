@@ -6,8 +6,6 @@ export default function Answer({
     question,
     checkClicked,
 }) {
-    // console.log("🚀 ~ file: Answer.jsx:4 ~ Answer ~ answers:", answers);
-
     const answersEl = answers.map((item) => {
         const styles = checkClicked
             ? {
@@ -23,13 +21,13 @@ export default function Answer({
                   opacity: !item.isCorrect && "0.5",
               }
             : {
-                  backgroundColor: item.isCorrect ? "#94D7A2" : "transparent",
                   border: item.isSelected && "none",
                   backgroundColor: item.isSelected ? "#D6DBF5" : "transparent",
               };
 
         return (
             <button
+                key={item.answer}
                 className="answer-1"
                 style={styles}
                 disabled={checkClicked && true}
